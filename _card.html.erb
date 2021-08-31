@@ -1,0 +1,50 @@
+<div class="w-100" id="event-card-index">
+  <%= link_to event_path(event), class: 'w-100' do %>
+    <div class="event-card">
+      <div class="host-infos">
+        <div class="content-center-vertical">
+          <% if event.user.facebook_picture_url %>
+            <%= image_tag event.user.facebook_picture_url, class: "avatar-small", "data-toggle" => "dropdown" %>
+          <% else %>
+            <%= cl_image_tag event.user.avatar.key, class: 'avatar-small' %>
+          <% end %>
+        </div>
+        <div class="host-infos-txt">
+          <p class="text-white mr-2"><%= "Let's #{event.title} #{event.emoji}"%></p>
+          <p><%= "By #{event.user.first_name} #{event.user.last_name}" %></p>
+        </div>
+      </div>
+
+      <div class="description-box-b">
+          <div class= text-timer-small>
+            <p><%= event.format_date %></p>
+          </div>
+
+          <div class="event-choice">
+            <%= link_to event_path(event) do %>
+              <i class="fas fa-chevron-down width-off"></i>
+            <% end %>
+            <% if current_user == event.user %>
+              <div class="ml-2">
+                <p><i class="fas fa-crown"></i></p>
+              </div>
+            <% elsif current_user.joined?(event) %>
+              <div class="ml-2">
+                <p><i class="fas fa-check"></i></p>
+              </div>
+            <% elsif current_user.declined?(event) %>
+              <div class="ml-2">
+                <p><i class="fas fa-times"></i></p>
+              </div>
+            <% else %>
+              <div class="ml-2">
+                <p><i class="fas fa-clock"></i></p>
+              </div>
+            <% end %>
+          </div>
+      </div>
+
+    </div>
+  <% end %>
+
+</div>

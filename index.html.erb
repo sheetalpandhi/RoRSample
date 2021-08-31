@@ -1,0 +1,35 @@
+<div class="events-page-header">
+  <div class="chevron-button">
+    <%= link_to root_path do %>
+      <i class="fas fa-chevron-left"></i>
+    <% end %>
+  </div>
+
+  <h1>My plans</h1>
+
+  <div></div>
+</div>
+
+<p class="events-page-helptext">All the events you accepted.</p>
+
+<div class="events-page-box-container">
+  <h2 class="text-white-title border-bottom">Today</h2>
+
+  <% if @ongoing_events.empty? && @upcoming_events.empty? %>
+    <p>You have no ongoing event so far, let your friends know you are available 🙋‍♀️ to join them!</p>
+  <% else %>
+    <% @ongoing_events.each do |event| %>
+      <%= render 'events/card', event: event %>
+    <% end %>
+    <% @upcoming_events.each do |event| %>
+      <%= render 'events/card', event: event %>
+    <% end %>
+  <% end %>
+
+  <% unless @later_events.empty? %>
+    <h2 class="text-white-title border-bottom">Later</h2>
+    <% @later_events.each do |event| %>
+      <%= render 'events/card', event: event %>
+    <% end %>
+  <% end %>
+</div>
